@@ -1,22 +1,22 @@
-[debug] [2019-11-19T03:01:06.998Z] ----------------------------------------------------------------------
-[debug] [2019-11-19T03:01:06.999Z] Command:       /usr/local/bin/firebase /Users/guilhermechagas/.cache/firebase/tools/lib/node_modules/firebase-tools/lib/bin/firebase serve --only hosting
-[debug] [2019-11-19T03:01:06.999Z] CLI Version:   7.7.0
-[debug] [2019-11-19T03:01:06.999Z] Platform:      darwin
-[debug] [2019-11-19T03:01:06.999Z] Node Version:  v10.15.3
-[debug] [2019-11-19T03:01:07.000Z] Time:          Mon Nov 18 2019 22:01:06 GMT-0500 (Eastern Standard Time)
-[debug] [2019-11-19T03:01:07.000Z] ----------------------------------------------------------------------
-[debug] [2019-11-19T03:01:07.000Z] 
-[debug] [2019-11-19T03:01:07.006Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-11-19T03:01:07.006Z] > authorizing via signed-in user
-[debug] [2019-11-19T03:01:07.006Z] [iam] checking project winterwalk-df00d for permissions ["firebase.projects.get"]
-[debug] [2019-11-19T03:01:07.007Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/winterwalk-df00d:testIamPermissions  
+[debug] [2019-11-19T23:58:06.978Z] ----------------------------------------------------------------------
+[debug] [2019-11-19T23:58:06.979Z] Command:       /usr/local/bin/firebase /Users/guilhermechagas/.cache/firebase/tools/lib/node_modules/firebase-tools/lib/bin/firebase serve --only hosting
+[debug] [2019-11-19T23:58:06.979Z] CLI Version:   7.7.0
+[debug] [2019-11-19T23:58:06.979Z] Platform:      darwin
+[debug] [2019-11-19T23:58:06.979Z] Node Version:  v10.15.3
+[debug] [2019-11-19T23:58:06.980Z] Time:          Tue Nov 19 2019 18:58:06 GMT-0500 (Eastern Standard Time)
+[debug] [2019-11-19T23:58:06.980Z] ----------------------------------------------------------------------
+[debug] [2019-11-19T23:58:06.980Z] 
+[debug] [2019-11-19T23:58:06.985Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-11-19T23:58:06.985Z] > authorizing via signed-in user
+[debug] [2019-11-19T23:58:06.985Z] [iam] checking project winterwalk-df00d for permissions ["firebase.projects.get"]
+[debug] [2019-11-19T23:58:06.986Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/winterwalk-df00d:testIamPermissions  
 
-[debug] [2019-11-19T03:01:07.379Z] <<< HTTP RESPONSE 200
-[debug] [2019-11-19T03:01:07.381Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/winterwalk-df00d  
+[debug] [2019-11-19T23:58:07.400Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-19T23:58:07.402Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/winterwalk-df00d  
  
-[debug] [2019-11-19T03:01:07.646Z] <<< HTTP RESPONSE 200
-[debug] [2019-11-19T03:01:07.648Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/winterwalk-df00d/webApps/-/config  
+[debug] [2019-11-19T23:58:07.668Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-19T23:58:07.670Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/winterwalk-df00d/webApps/-/config  
  
-[debug] [2019-11-19T03:01:08.016Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-19T23:58:08.241Z] <<< HTTP RESPONSE 200
 [info] i  hosting: Serving hosting files from: ./
 [info] ✔  hosting: Local server: http://localhost:5000
