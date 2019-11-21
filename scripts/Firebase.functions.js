@@ -54,16 +54,16 @@ var query = firebase.firestore().collection(collection_name);
  }
 
 return query
- .limit(5)
- .get()
- .then(
-   function(querySnapshot) {
-     querySnapshot.forEach(function(doc) {
-        //  console.log('filtered')
-        //  console.log(doc.id, " => ", doc.data());
-         result.push({ doc, ...doc.data() }); 
-     })
-     return result
-    }
- )
+        .get()
+        .then(
+          function(querySnapshot) {
+            //console.log(querySnapshot)
+
+            querySnapshot.forEach(function(doc) {
+                //  console.log(doc.id, " => ", doc.data());
+                result.push({ doc, ...doc.data() }); 
+            })
+            return result
+            }
+          )
 };

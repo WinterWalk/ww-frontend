@@ -1,0 +1,32 @@
+#add_form { 
+    position: relative; 
+    z-index: 1; /* The z-index should be higher than Google Maps */
+    width: auto;
+    margin: 1vw auto 0;
+    padding: 1vw;
+    background: GhostWhite;
+    height: auto;
+    opacity: 1; 
+    color: black;
+    -webkit-border-radius:1vw;
+    -moz-border-radius:1vw;
+    border-radius:1vw;
+  }
+  
+  select {
+      padding:0.25vw;
+      margin: 0;
+      font-size:1vw;
+      -webkit-border-radius:0.45vw;
+      -moz-border-radius:0.45vw;
+      border-radius:0.45vw;
+      background: #778899;
+      color:#F0F0F0;
+      border:none;
+      outline:none;
+      display: inline-block;
+      -webkit-appearance:none;
+      -moz-appearance:none;
+      appearance:none;
+      cursor:pointer;
+  }
