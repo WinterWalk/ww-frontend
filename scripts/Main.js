@@ -9,6 +9,7 @@ var select_to = document.getElementById("to");
 
 var query_data = [];
 
+
 // read initial streets
 var filters_temp = {
   municipality: 'Old Ottawa',
@@ -150,28 +151,36 @@ WinterWalk.prototype.initTemplates = function() {
 };
 
 window.onload = function() {
-  window.app = new WinterWalk();
+  // window.app = new WinterWalk();
 
-  var filtered_data = this.WinterWalk.prototype.getFilteredRestaurants(filters_temp)
+  // var filtered_data = this.WinterWalk.prototype.getFilteredRestaurants(filters_temp)
 
-  var temp_municipality = [];
+  // var temp_municipality = [];
 
-  // initialize municipality
-  filtered_data.then(
-        function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-              query_data.push( doc );
+  // // initialize municipality
+  // filtered_data.then(
+  //       function(querySnapshot) {
+  //         querySnapshot.forEach(function(doc) {
+  //             query_data.push( doc );
 
-              // add municipality
-              if ( !(temp_municipality.includes(doc.MUNICIPALITY)) ){
-                // add to dropdown list
-                temp_municipality.push( doc.MUNICIPALITY )
-                select_mun.options[select_mun.options.length] = new Option(doc.MUNICIPALITY, doc.MUNICIPALITY);
-              }
-          });
-        }
-  )
+  //             // add municipality
+  //             if ( !(temp_municipality.includes(doc.MUNICIPALITY)) ){
+  //               // add to dropdown list
+  //               temp_municipality.push( doc.MUNICIPALITY )
+  //               select_mun.options[select_mun.options.length] = new Option(doc.MUNICIPALITY, doc.MUNICIPALITY);
+  //             }
+  //         });
+  //       }
+
   
+  // )
+  
+  console.log('hey')
+
+  var temp_test = this.streets_db.filter(obj=>obj.MUNICIPALITY==='Old Ottawa')
+
+  console.log(temp_test)
+
   // // add data
     // //  var collection = firebase.firestore().collection('restaurants');
     // //  return collection.add(rest_data);

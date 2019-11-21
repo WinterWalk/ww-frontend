@@ -4,10 +4,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="/scripts/GoogleMaps.js"></script>
+  
+
+
   <link rel="stylesheet" href="stylesheet.css">
   <title>WinterWalk</title>
+
+  <style>
+    #map {
+      height: 100%;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+
 </head>
 <body>
+
+  
 
   <div id="add_form">
     Add Information
@@ -52,47 +71,12 @@
 
   <script src="/scripts/Main.js"></script>
   <script src="/scripts/Firebase.functions.js"></script>
-  <!-- <script src="/scripts/GoogleMaps.js"></script> -->
+  <script src="/database/database_json.js"></script>
 
-  <script>
-    var polylineCoordinates = [];
-var myLatlng = {lat: 45.393776, lng: -75.683198};
-var map;
-
-var myStyles =[
-    {
-        featureType: "poi",
-        elementType: "labels",
-        stylers: [
-            { visibility: "off" }
-        ]
-    }
-];
-
-function initMap() {
-        
-    linePath = new google.maps.Polyline({
-          path: polylineCoordinates,
-          geodesic: true,
-          strokeColor: '#000000',
-          strokeOpacity: 1.0,
-          strokeWeight: 4
-      });
-                       
-      // initialize map
-      map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 17,
-          center: myLatlng,
-          styles: myStyles,
-          disableDefaultUI: true
-      });
-    }
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSrQjKl6beKTCuWgp9K3OSw6jhq11x05k&callback=initMap"
+    async defer></script>
   
-  </script>
-
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADlS3N85mBecT8zSJ4iwYETlu_QZCgStY&callback=initMap">
-  </script>
+  
 
 </body>
 </html>
