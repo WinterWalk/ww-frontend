@@ -30,3 +30,35 @@ function initMap() {
           disableDefaultUI: true
       });
     }
+
+function recenter_map (lat_lng) {
+    map.panTo(lat_lng);
+}
+
+function draw_polyline (coords) {
+
+    var polyline = new google.maps.Polyline({
+        path: coords,
+        geodesic: true,
+        strokeColor: '#000000',
+        strokeOpacity: 1,
+        strokeWeight: 4,
+      });
+      polylineCoordinates.push(polyline)
+      polyline.setMap(map);
+}
+
+
+function erase_polyline(type) {
+
+    if (type == 'black'){
+        polylineCoordinates.forEach(function(doc) {
+            doc.setMap(null);
+        });
+    } else {
+
+
+    } 
+}
+
+

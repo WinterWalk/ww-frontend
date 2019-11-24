@@ -14,7 +14,11 @@
 
   <style>
     #map {
-      height: 100%;
+      position: absolute;
+      height:100%;
+      width:100%;
+      left: 0;
+      top: 0;
     }
     html, body {
       height: 100%;
@@ -30,34 +34,40 @@
 
   <div id="add_form">
     Add Information
-    <br> <br>
+    <br>
     <form>
-        Municipality:
-        <select class="template form-municipality" id='municipality' name="municipality">
-            <option value="">Select one</option>
-        </select>
-        <br>
-
-        Street:
-        <select class="template form-municipality" id='street' name="street">
-            <option value="">Select one</option>
-        </select>
-        <br>
-
-        From:
-        <select class="template form-municipality" id='from' name="from">
-            <option value="">Select one</option>
-        </select>
-        <br>
-
-        To:
-        <select class="template form-municipality" id='to' name="to">
-            <option value="">Select one</option>
-        </select>
-        <br>
-        <br>
-        <input type="submit" value="Submit">
+        <div id="municipality_div">
+          Municipality:
+          <select class="template form-municipality" id='municipality' name="municipality">
+              <option value="">Select one</option>
+          </select>
+          <br>
+        </div>
+        <div id="street_div" style="display:none !important;">
+          Street:
+          <select class="template form-municipality" id='street' name="street">
+              <option value="">Select one</option>
+          </select>
+          <br>
+        </div>
+        <div id="between_div" style="display:none !important;">
+          Between:
+          <select class="template form-municipality" id='between' name="between">
+              <option value="">Select one</option>
+          </select>
+          <br>
+        </div>
     </form>
+    <div id="condition" style="display:none !important;">
+        Condition: 
+        <span class="menu-grouping">
+          <input type="radio" id="safe_rd" name="cond" value=1> Safe 
+          <input type="radio" name="cond" value=2> Caution
+          <input type="radio" name="cond" value=3> Dangerous  
+        </span>
+        <br>
+    </div>
+    <button type="button" id='submit_button' style="display:none !important;">Submit</button>
   </div>
 
   <div id="map"></div>
