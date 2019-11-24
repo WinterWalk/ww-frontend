@@ -104,6 +104,19 @@ function reset_form() {
 
 }
 
+function add_data_to_DB (db_name, data) {
+
+  firebase.auth().signInAnonymously().then(function() {
+    
+    var collection = firebase.firestore().collection(db_name);
+    return collection.add(data);
+
+  }).catch(function(err) {
+    console.log(err);
+  });
+
+}
+
 
 //function to update form
 function update_form(obj_listener){
@@ -214,20 +227,10 @@ WinterWalk.prototype.initRouter = function() {
     .on({
       '/': function() {
         //that.updateQuery(that.filters);
-        that.getFilteredRestaurants(that.filters);
+        //that.getFilteredRestaurants(that.filters);
       }
     })
     .resolve();
-
-  // firebase
-  //   .firestore()
-  //   .collection('streets')
-  //   .limit(1)
-  //   .onSnapshot(function(snapshot) {
-  //     // if (snapshot.empty) {
-  //     //   that.router.navigate('/setup');
-  //     // }
-  //   });
 };
 
 WinterWalk.prototype.initTemplates = function() {
@@ -240,7 +243,7 @@ WinterWalk.prototype.initTemplates = function() {
 };
 
 window.onload = function() {
-  // window.app = new WinterWalk();
+  window.app = new WinterWalk();
 
   div_str.style.display = 'none';
   div_bet.style.display = 'none';
@@ -248,16 +251,12 @@ window.onload = function() {
   // var filtered_data = this.WinterWalk.prototype.getFilteredRestaurants(filters_temp)
 
   reset_form();
-  
-
-  // // add data
-    // //  var collection = firebase.firestore().collection('restaurants');
-    // //  return collection.add(rest_data);
-
 };
 
 window.addEventListener('load', function () {
-  
+
+  window.app = new WinterWalk();
+
   // listener for municipality
   select_mun.addEventListener("change", function() {
 
@@ -352,7 +351,15 @@ window.addEventListener('load', function () {
 
     console.log(query_data[0].RD_SEGMENT_ID)
 
-    console.log(condition)
+    
+    // build data and add to db
+    var temp_condition = {RD_SEGMENT_ID: query_data[0].RD_SEGMENT_ID,
+                          CONDITION: condition,
+                          TIMESTAMP: new Date().getTime()
+                         }
+
+    console.log(temp_condition)        
+    //add_data_to_DB ('conditions', temp_condition)
 
 
   });

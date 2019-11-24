@@ -2,12 +2,12 @@
 
 var collection_name = 'streets'
 
-WinterWalk.prototype.addRestaurant = function(data) {
+WinterWalk.prototype.addCondition = function(data) {
   var collection = firebase.firestore().collection(collection_name);
   return collection.add(data);
 };
 
-WinterWalk.prototype.getAllRestaurants = function() {
+WinterWalk.prototype.getAllRows = function() {
   firebase.firestore()
   .collection(collection_name)
   .limit(5)
@@ -22,7 +22,7 @@ WinterWalk.prototype.getAllRestaurants = function() {
 };
 
 
-WinterWalk.prototype.getRestaurant = function(id) {
+WinterWalk.prototype.getRow = function(id) {
   return firebase.firestore()
   .collection(collection_name)
   .doc(id)
@@ -32,7 +32,7 @@ WinterWalk.prototype.getRestaurant = function(id) {
   })
 };
 
-WinterWalk.prototype.getFilteredRestaurants = function(filters) {
+WinterWalk.prototype.getFilteredRow = function(filters) {
  
 var result = [];
 var query = firebase.firestore().collection(collection_name);
@@ -53,17 +53,12 @@ var query = firebase.firestore().collection(collection_name);
    query = query.where('TO_RD_NAME', '==', filters.to);
  }
 
-return query
-        .get()
-        .then(
-          function(querySnapshot) {
+return query.get().then(function(querySnapshot) {
             //console.log(querySnapshot)
-
             querySnapshot.forEach(function(doc) {
-                //  console.log(doc.id, " => ", doc.data());
-                result.push({ doc, ...doc.data() }); 
+              //  console.log(doc.id, " => ", doc.data());
+              result.push({ doc, ...doc.data() }); 
             })
-            return result
-            }
-          )
+          return result
+        })
 };
