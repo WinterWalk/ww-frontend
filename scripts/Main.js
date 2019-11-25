@@ -16,6 +16,8 @@ var query_data = [];
 
 var polylines_coord = [];
 
+var db_result = [];
+
 var condition = 0;
 
 
@@ -70,7 +72,26 @@ function draw_selected_line () {
     polylines_coord.push(coords);
 
     recenter_map(myLatlng)
-    draw_polyline(coords)
+    draw_polyline(coords, 5)
+
+}
+
+function draw_condition_lines (array_temp) {
+
+  array_temp.forEach(function(entry) {
+    
+    var id = entry.RD_SEGMENT_ID
+    var condition = parseInt(entry.CONDITION)
+    var timestamp = entry.TIMESTAMP
+
+    //get coordinates
+    query_data = streets_db
+    query_data = query_data.filter(obj => (obj.RD_SEGMENT_ID===id))
+
+    console.log(query_data)
+    
+  });
+
 
 }
 
@@ -115,6 +136,26 @@ function add_data_to_DB (db_name, data) {
     console.log(err);
   });
 
+}
+
+function query_all_data (db_name) {
+
+  var result = [];
+
+  // firebase.auth().signInAnonymously().then(function() {
+    return firebase.firestore()
+    .collection(db_name)
+    .limit(5)
+    .get()
+    .then(
+      function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          result.push(doc.data())
+          db_result.push(doc.data())
+        });
+      return result
+    })
+  //});
 }
 
 
@@ -248,9 +289,19 @@ window.onload = function() {
   div_str.style.display = 'none';
   div_bet.style.display = 'none';
 
-  // var filtered_data = this.WinterWalk.prototype.getFilteredRestaurants(filters_temp)
-
   reset_form();
+
+  var temp_test = query_all_data('conditions')
+
+  temp_test.then(function(){
+
+    console.log(db_result)
+    }
+  )
+  
+
+  //draw_condition_lines(db_result);
+
 };
 
 window.addEventListener('load', function () {
@@ -361,7 +412,9 @@ window.addEventListener('load', function () {
     console.log(temp_condition)        
     //add_data_to_DB ('conditions', temp_condition)
 
-
+    // erase black line
+    erase_polyline('black');
+    
   });
 
 }, false);

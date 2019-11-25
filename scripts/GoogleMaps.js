@@ -35,12 +35,28 @@ function recenter_map (lat_lng) {
     map.panTo(lat_lng);
 }
 
-function draw_polyline (coords) {
+function draw_polyline (coords, colorCode) {
+
+    let colorHex;
+    switch(colorCode){
+    case 3:
+        colorHex = '#FF0000'
+        break
+    case 2:
+        colorHex = '#FFA500'
+        break
+    case 1:
+        colorHex = '#FFA500'
+        break
+    default:
+        colorHex = '#000000'
+    }
+
 
     var polyline = new google.maps.Polyline({
         path: coords,
         geodesic: true,
-        strokeColor: '#000000',
+        strokeColor: colorHex,
         strokeOpacity: 1,
         strokeWeight: 4,
       });
@@ -53,11 +69,14 @@ function erase_polyline(type) {
 
     if (type == 'black'){
         polylineCoordinates.forEach(function(doc) {
-            doc.setMap(null);
+            if (doc.strokeColor == '#000000'){
+                doc.setMap(null);
+            }
         });
     } else {
-
-
+        polylineCoordinates.forEach(function(doc) {
+            doc.setMap(null);
+        });
     } 
 }
 
