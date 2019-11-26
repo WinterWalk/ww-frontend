@@ -12,6 +12,11 @@
   <link rel="stylesheet" href="stylesheet.css">
   <title>WinterWalk</title>
 
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+
   <style>
     #map {
       position: absolute;
@@ -31,7 +36,15 @@
 <body>
   <div id="add_form">
 
-    <button type="button" id='refresh_info' style="display:block;">Refresh Map</button>
+  
+    <table style="width:100%">
+      <tr>
+        <td> <h2> Winter Walk </h2></td>
+        <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+        <td > <div id="refresh_but"> <button type="button" id='refresh_info' style="display:block;">Refresh Map</button> </div></td>
+      </tr>
+    </table>
+
     <form>
         Add Information
         <div id="municipality_div">
@@ -69,6 +82,8 @@
   </div>
 
   <div id="map"></div>
+
+  <div id="license_div"> Contains information licensed under the Open Government Licence – City of Ottawa. </div>
 
   <script src="/__/firebase/7.4.0/firebase-app.js"></script>
   <script src="/__/firebase/7.4.0/firebase-auth.js"></script>

@@ -7,10 +7,16 @@ var myStyles =[
         featureType: "poi",
         elementType: "labels",
         stylers: [
-            { visibility: "off" }
+            { visibility: "off"}
         ]
     }
 ];
+
+var lineSymbol = {
+    path: 'M 0,-2 0,1',
+    strokeOpacity: 1,
+    scale: 4
+  };
 
 function initMap() {
         
@@ -29,37 +35,75 @@ function initMap() {
           styles: myStyles,
           disableDefaultUI: true
       });
-    }
+
+    // get user location
+            
+  var infoWindow = new google.maps.InfoWindow;
+             
+  if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+      var myLatlng = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+      };
+      map.setCenter(myLatlng);
+      
+      }, function() {
+          handleLocationError(true, infoWindow, map.getCenter());
+      });
+  } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+  }
+
+}
+
+
 
 function recenter_map (lat_lng) {
     map.panTo(lat_lng);
 }
 
-function draw_polyline (coords, colorCode) {
+function draw_polyline (coords, colorCode, style) {
 
     let colorHex;
     switch(colorCode){
     case 3:
-        colorHex = '#FF0000'
+        colorHex = '#F2113A'
         break
     case 2:
-        colorHex = '#FFA500'
+        colorHex = '#FFD66C'
         break
     case 1:
-        colorHex = '#FFA500'
+        colorHex = '#6EE9A6'
         break
     default:
         colorHex = '#000000'
     }
 
-
-    var polyline = new google.maps.Polyline({
-        path: coords,
-        geodesic: true,
-        strokeColor: colorHex,
-        strokeOpacity: 1,
-        strokeWeight: 4,
-      });
+    if (style == 'dashed'){
+        var polyline = new google.maps.Polyline({
+            path: coords,
+            geodesic: true,
+            strokeColor: colorHex,
+            strokeOpacity: 0,
+            strokeWeight: 4,
+            icons: [{
+                icon: lineSymbol,
+                offset: '0',
+                repeat: '20px'
+              }]
+          });
+    } else {
+        var polyline = new google.maps.Polyline({
+            path: coords,
+            geodesic: true,
+            strokeColor: colorHex,
+            strokeOpacity: 1,
+            strokeWeight: 4
+          });
+    }
+    
       polylineCoordinates.push(polyline)
       polyline.setMap(map);
 }

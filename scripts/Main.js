@@ -1,5 +1,9 @@
 'use strict';
 
+// variables to show lines and dashed lines (in minutes)
+var max_time_limit = 60
+var dash_time_limit = 3
+
 var collection_name = 'streets'
 
 var select_mun = document.getElementById("municipality");
@@ -11,10 +15,13 @@ var div_bet = document.getElementById("between_div");
 var div_but = document.getElementById("submit_button");
 
 var div_cond = document.getElementById("condition");
+var div_refresh = document.getElementById("refresh_info");
+
 
 var query_data = [];
 
 var polylines_coord = [];
+var polylines_conditions = [];
 
 var db_result = [];
 
@@ -78,6 +85,8 @@ function draw_selected_line () {
 
 function draw_condition_lines (array_temp) {
 
+  var temp_now = new Date().getTime();
+
   array_temp.forEach(function(entry) {
     
     var id = entry.RD_SEGMENT_ID
@@ -88,7 +97,31 @@ function draw_condition_lines (array_temp) {
     query_data = streets_db
     query_data = query_data.filter(obj => (obj.RD_SEGMENT_ID===id))
 
-    console.log(query_data)
+
+    //recenter and draw line
+    var coords = []
+
+    query_data.forEach(function(entry) {
+      var curr_coord = entry.COORD.split(" ")
+      curr_coord.forEach(function(entry) {
+        var first_latlng = entry.split(",")
+        coords.push( {lat: parseFloat(first_latlng[1]), lng: parseFloat(first_latlng[0])} )
+      })
+    });
+     
+    polylines_conditions.push(coords);
+   
+    var elapsed_time_min = Math.floor((temp_now - timestamp)/60000)
+
+    //choose to show a line as solid or dashed
+    if (elapsed_time_min < dash_time_limit) {
+      draw_polyline(coords, condition, 'solid');
+    } else if (elapsed_time_min < max_time_limit) {
+      draw_polyline(coords, condition, 'dashed');
+    }
+
+
+    
     
   });
 
@@ -140,12 +173,17 @@ function add_data_to_DB (db_name, data) {
 
 function query_all_data (db_name) {
 
+  var temp_now = new Date().getTime();
   var result = [];
+  var query = firebase.firestore().collection(db_name);
 
+  // filter according to max_time_limit
+  var filter_temp = 
+  query = query.where('TIMESTAMP', '>', (temp_now - (60*60*1000)));
+  
   // firebase.auth().signInAnonymously().then(function() {
-    return firebase.firestore()
-    .collection(db_name)
-    .limit(5)
+    return query
+    //.limit(5)
     .get()
     .then(
       function(querySnapshot) {
@@ -284,7 +322,7 @@ WinterWalk.prototype.initTemplates = function() {
 };
 
 window.onload = function() {
-  window.app = new WinterWalk();
+  //window.app = new WinterWalk();
 
   div_str.style.display = 'none';
   div_bet.style.display = 'none';
@@ -294,19 +332,15 @@ window.onload = function() {
   var temp_test = query_all_data('conditions')
 
   temp_test.then(function(){
-
-    console.log(db_result)
+    console.log(db_result);
+    draw_condition_lines(db_result);
     }
   )
-  
-
-  //draw_condition_lines(db_result);
-
 };
 
 window.addEventListener('load', function () {
 
-  window.app = new WinterWalk();
+  //window.app = new WinterWalk();
 
   // listener for municipality
   select_mun.addEventListener("change", function() {
@@ -400,21 +434,63 @@ window.addEventListener('load', function () {
         }
     }
 
-    console.log(query_data[0].RD_SEGMENT_ID)
+    //console.log(query_data[0].RD_SEGMENT_ID)
 
-    
     // build data and add to db
     var temp_condition = {RD_SEGMENT_ID: query_data[0].RD_SEGMENT_ID,
                           CONDITION: condition,
                           TIMESTAMP: new Date().getTime()
                          }
 
-    console.log(temp_condition)        
-    //add_data_to_DB ('conditions', temp_condition)
+    //console.log(temp_condition)        
+    add_data_to_DB ('conditions', temp_condition)
 
     // erase black line
     erase_polyline('black');
+
+    // refresh view
+    var temp_test = query_all_data('conditions')
+                         
+    db_result = [];
+
+    temp_test.then(function(){
+      console.log(db_result);
+      draw_condition_lines(db_result);
+      }
+    )
     
+  });
+
+
+   // listener for refresh button
+   div_refresh.addEventListener("click", function() {
+
+    //clear dropdown
+    clear_dropdown(select_str)
+    clear_dropdown(select_bet)
+    //add default option
+    select_str.options[select_str.options.length] = new Option('Select one', '');
+    select_bet.options[select_bet.options.length] = new Option('Select one', '');
+
+    div_str.style.display = 'none';
+    div_bet.style.display = 'none';
+    div_but.style.display = 'none';
+    div_cond.style.display = 'none';
+
+    // erase black line
+    erase_polyline('black');
+
+    // refresh view
+    var temp_test = query_all_data('conditions')
+
+    db_result = [];
+
+    temp_test.then(function(){
+      console.log(db_result);
+      draw_condition_lines(db_result);
+      }
+    )
+
   });
 
 }, false);
