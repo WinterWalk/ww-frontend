@@ -45,30 +45,20 @@
       </tr>
     </table>
 
-    <form>
         Add Information
-        <div id="municipality_div">
-          Municipality:
-          <select class="template form-municipality" id='municipality' name="municipality">
-              <option value="">Select one</option>
-          </select>
-          <br>
-        </div>
-        <div id="street_div" style="display:none !important;">
+        <div id="street_div">
           Street:
-          <select class="template form-municipality" id='street' name="street">
-              <option value="">Select one</option>
-          </select>
+          <input list="street" oninput="onInput_str()" id='input_str' >
+          <datalist id="street"></datalist>
           <br>
         </div>
+        
         <div id="between_div" style="display:none !important;">
           Between:
-          <select class="template form-municipality" id='between' name="between">
-              <option value="">Select one</option>
-          </select>
+          <input list="between" oninput="onInput_bet()" id='input_bet' >
+          <datalist id="between"></datalist>
           <br>
         </div>
-    </form>
     <div id="condition" style="display:none !important;">
         Condition: 
         <span class="menu-grouping">
