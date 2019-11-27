@@ -1,7 +1,18 @@
 service cloud.firestore {
   match /databases/{database}/documents {
-
-        allow read: if request.auth != null;
+		
+    // from streets, only read permission
+    match /streets/{streetId} {
+      // allow read: if request.auth != null;
+      allow read: if true;
+      allow delete, create, update: if false;
+  	}
+    
+    match /conditions/{conditionId} {
+      //allow create, read: if request.auth != null;
+      allow create, read: if true;
+      allow delete, update: if false;
+    } 
     
   }
 }
